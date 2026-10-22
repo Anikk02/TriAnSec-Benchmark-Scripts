@@ -1,0 +1,87 @@
+==========================================================================================
+TRIANSEC SIMULATION — EVIDENCE SUMMARY
+==========================================================================================
+Run ID         : 20261023_015511
+Base URL       : http://localhost:8000
+Runtime        : 122.4s (2.04 min)
+Total Requests : 5380
+Average RPS    : 43.94
+
+USER DISTRIBUTION & IP POLICY
+------------------------------------------------------------------------------------------
+  Normal       :  30  (sticky IP, persistent cookie)
+  Minimal bad  :  10  (sticky IP, persistent cookie)
+  Suspicious   :  18  (rotating IP 2-10min)
+  Real bad     :   5  (rotating IP 1-10sec)
+
+DECISION BREAKDOWN BY USER TYPE  (Proof of adaptive enforcement)
+------------------------------------------------------------------------------------------
+User Type        Total   ALLOW  THROTTLE   BLOCK      RL   Error   Block%
+normal             724     598         0     117       0       9    16.2%
+minimal_bad        622     475        10     129       0       8    20.7%
+suspicious        2618     204       664    1726       0      24    65.9%
+real_bad          1416      73         0    1335       0       8    94.3%
+
+Legend: RL = RATE_LIMIT (mechanical rate ceiling, not a policy verdict)
+
+IDENTITY RESOLUTION  (Proof multi-signal tracking works)
+------------------------------------------------------------------------------------------
+  Users observed                 : 63
+  Users that rotated IP          : 23
+  Users that refreshed cookie    : 3
+  Total IP change events         : 3373
+  Total cookie refresh events    : 3
+  Unique IPs assigned            : 63
+
+STICKY-IP / ROTATION PROOF
+------------------------------------------------------------------------------------------
+  Sticky users (normal+minimal_bad) that rotated   : 0  (must be 0)
+  Rotating users (suspicious+real_bad) that rotated: 23
+  ✅ No sticky users rotated their IP (correct)
+
+ATTACK / ABUSE EVENTS
+------------------------------------------------------------------------------------------
+  Suspicious requests sent       : 351
+  Attack requests sent           : 107
+  Burst events triggered         : 305
+
+CLIENT-SIDE ERROR BREAKDOWN
+------------------------------------------------------------------------------------------
+  Pool timeouts (pool exhausted) : 0
+  Read timeouts (server slow)    : 0
+  Connect errors (network)       : 15
+  Other timeout / exception      : 0
+
+TOP RESPONSE CODES
+------------------------------------------------------------------------------------------
+  HTTP 429: 3981
+  HTTP 200: 1258
+  HTTP 404: 93
+  HTTP 405: 20
+  HTTP 0: 15
+  HTTP 422: 13
+
+TOP ENDPOINTS HIT
+------------------------------------------------------------------------------------------
+  /api/search: 876
+  /api/products: 870
+  /health: 806
+  /api/profile: 791
+  /api/users/me: 782
+  /api/feed: 758
+  /api/users: 70
+  /api/data: 60
+  /api/export: 54
+  /api/checkout: 36
+  /api/cart: 36
+  /api/notifications: 36
+  /api/payments: 35
+  /api/settings: 29
+  /api/admin: 25
+
+ARTIFACTS
+------------------------------------------------------------------------------------------
+  Full JSON evidence : evidence\run_20261023_015511.json
+  CSV (per-request)  : evidence\run_20261023_015511.csv
+  This summary       : evidence\summary_20261023_015511.txt
+==========================================================================================

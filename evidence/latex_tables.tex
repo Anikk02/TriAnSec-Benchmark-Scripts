@@ -1,0 +1,95 @@
+% =========================================================
+% Table I: Classification Performance Comparison
+% =========================================================
+\begin{table}[htbp]
+\centering
+\caption{Security Performance Comparison across Rate Limiting Architectures (Mean $\pm$ Std Dev)}
+\label{tab:security_metrics}
+\begin{tabular}{lccccc}
+\hline
+\textbf{Architecture} & \textbf{FPR (\%)} & \textbf{Recall Real Bad (\%)} & \textbf{Recall All Abusive (\%)} & \textbf{Precision (\%)} & \textbf{F1-Score} \\ \hline
+TriAnSec (Full System) & $3.00 \pm 2.37$ & $95.03 \pm 0.46$ & $91.76 \pm 0.94$ & $98.31 \pm 1.44$ & $0.966 \pm 0.009$ \\
+Baseline (Fixed-Window IP) & $0.00$ & $0.00$ & $0.00$ & $100.00$ & $0.000$ \\
+Ablation A (No Client Hints) & $16.16$ & $94.28$ & $92.34$ & $91.94$ & $0.931$ \\
+Ablation B (No EWMA History) & $5.57$ & $95.13$ & $92.51$ & $96.78$ & $0.959$ \\
+Ablation C (Sync Pipeline) & $6.02$ & $95.55$ & $92.07$ & $96.88$ & $0.962$ \\
+\hline
+\end{tabular}
+\end{table}
+
+% =========================================================
+% Table II: Fast-Path Latency Overhead Comparison
+% =========================================================
+\begin{table}[htbp]
+\centering
+\caption{Latency Overhead Analysis of Fast-Path Security Dispatch (ms)}
+\label{tab:latency_metrics}
+\begin{tabular}{lccccc}
+\hline
+\textbf{Architecture} & \textbf{P50} & \textbf{P90} & \textbf{P95} & \textbf{P99} & \textbf{Mean} \\ \hline
+TriAnSec (Full System) & $4.26 \pm 0.45$ & $21.57 \pm 5.06$ & $46.45 \pm 16.36$ & $245.15 \pm 141.22$ & $15.37 \pm 5.82$ \\
+Baseline (Fixed-Window IP) & $2.93 \pm 0.15$ & $7.31 \pm 0.41$ & $10.03 \pm 0.82$ & $18.29 \pm 2.02$ & $4.17 \pm 0.29$ \\
+Ablation A (No Client Hints) & $3.96$ & $18.34$ & $36.74$ & $122.19$ & $11.30$ \\
+Ablation B (No EWMA History) & $4.03$ & $17.30$ & $37.46$ & $131.57$ & $11.32$ \\
+Ablation C (Sync Pipeline) & $3.62$ & $12.79$ & $17.44$ & $33.58$ & $6.10$ \\
+\hline
+\end{tabular}
+\end{table}
+
+% =========================================================
+% Table III: Progressive Enforcement Action Distribution
+% =========================================================
+\begin{table}[htbp]
+\centering
+\caption{Progressive Enforcement Action Distribution across Behavioral Traffic Classes (\%)}
+\label{tab:progressive_enforcement}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Architecture} & \textbf{Normal (A/T/B)} & \textbf{Minimal Bad (A/T/B)} & \textbf{Suspicious (A/T/B)} & \textbf{Real Bad (A/T/B)} \\ \hline
+TriAnSec (Full System) & 95.6 / 0.0 / 3.0 & 89.6 / 0.5 / 9.0 & 8.7 / 33.9 / 56.2 & 4.4 / 0.0 / 95.0 \\
+Baseline (Fixed-Window IP) & 98.1 / 0.0 / 0.0 & 98.2 / 0.0 / 0.0 & 98.7 / 0.0 / 0.0 & 99.5 / 0.0 / 0.0 \\
+Ablation A (No Client Hints) & 82.6 / 0.0 / 16.2 & 76.4 / 1.6 / 20.7 & 7.8 / 25.4 / 65.9 & 5.2 / 0.0 / 94.3 \\
+Ablation B (No EWMA History) & 93.3 / 0.0 / 5.6 & 89.8 / 0.0 / 9.5 & 7.3 / 20.5 / 70.7 & 4.0 / 0.0 / 95.1 \\
+Ablation C (Sync Pipeline) & 92.5 / 0.0 / 6.0 & 99.1 / 0.0 / 0.0 & 8.4 / 39.0 / 51.3 & 4.1 / 0.0 / 95.6 \\
+\hline
+\end{tabular}
+\end{table}
+
+% =========================================================
+% Table IV: Multi-Signal Identity Tracking & Adversarial Resilience
+% =========================================================
+\begin{table}[htbp]
+\centering
+\caption{Multi-Signal Identity Resolution Resilience under IP Rotation and Adversarial Churn}
+\label{tab:identity_resilience}
+\begin{tabular}{lccccc}
+\hline
+\textbf{Architecture} & \textbf{Total Requests} & \textbf{IP Rotations} & \textbf{Rot-Bad Recall (\%)} & \textbf{Probe Recall (\%)} & \textbf{Throughput (req/s)} \\ \hline
+TriAnSec (Full System) & 5,177 & 2,337 & $91.76 \pm 0.94$ & $75.09 \pm 4.86$ & $43.1 \pm 2.9$ \\
+Baseline (Fixed-Window IP) & 5,695 & 2,615 & $0.00$ & $0.00$ & $47.5 \pm 1.3$ \\
+Ablation A (No Client Hints) & 5,380 & 2,437 & $92.34$ & $81.46$ & $44.9$ \\
+Ablation B (No EWMA History) & 5,240 & 2,327 & $92.51$ & $77.46$ & $43.7$ \\
+Ablation C (Sync Pipeline) & 5,732 & 2,571 & $92.07$ & $82.18$ & $47.8$ \\
+\hline
+\end{tabular}
+\end{table}
+
+% =========================================================
+% Table V: Extended Baselines & Machine Learning Comparison
+% =========================================================
+\begin{table*}[htbp]
+\centering
+\caption{Comparative Evaluation Against Extended Industry Baselines and Machine Learning Classifiers}
+\label{tab:extended_baselines}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\textwidth}{@{}lXcccccc@{}}
+\hline
+\textbf{Defense Paradigm} & \textbf{Underlying Mechanism} & \textbf{FPR (\%)} & \textbf{Recall (\%)} & \textbf{Precision (\%)} & \textbf{F1-Score} & \textbf{Decision Latency} & \textbf{Primary Failure Mode} \\ \hline
+Fixed-Window (IP) & Static Counter / Source IP & $0.00 \pm 0.00$ & $0.00 \pm 0.00$ & $0.00 \pm 0.00$ & $0.000$ & $2.93$\,ms & Total evasion via proxy rotation (0\% recall) \\
+Sliding-Window Log (IP) & Sorted Set Log / Source IP & $0.00 \pm 0.00$ & $0.00 \pm 0.00$ & $0.00 \pm 0.00$ & $0.000$ & $3.45$\,ms & Total evasion via proxy rotation (0\% recall) \\
+Sliding Log (Cookie) & Session Token Sliding Log & $0.00 \pm 0.00$ & $0.00 \pm 0.00$ & $0.00 \pm 0.00$ & $0.000$ & $3.50$\,ms & Defeated by session-cookie wiping (Threat A3) \\
+Isolation Forest & Unsupervised Anomaly Model & $67.19$ & $24.03$ & $51.14$ & $0.327$ & $+18.2$\,ms & Catastrophic false positives on bursty human traffic \\
+Random Forest & Supervised Classifier & $7.07$ & $93.39$ & $97.48$ & $0.954$ & $+12.4$\,ms & Requires labeled training data; stateless \\ \hline
+\textbf{TriAnSec (Ours)} & \textbf{Stateful Multi-Signal Engine} & $\mathbf{3.00 \pm 2.37}$ & $\mathbf{95.03 \pm 0.46}$ & $\mathbf{98.31 \pm 1.44}$ & $\mathbf{0.966 \pm 0.009}$ & $\mathbf{4.26 \pm 0.45}$\,ms & \textbf{None (Sub-5ms, Zero Labels, Stateful EWMA)} \\ \hline
+\end{tabularx}
+\end{table*}

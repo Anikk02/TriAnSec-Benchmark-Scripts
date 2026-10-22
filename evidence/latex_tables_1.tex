@@ -1,0 +1,37 @@
+% =========================================================
+% Table I: Classification Performance Comparison
+% =========================================================
+\begin{table}[htbp]
+\centering
+\caption{Security Performance Comparison across Rate Limiting Architectures (Mean $\pm$ Std Dev)}
+\label{tab:security_metrics}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Architecture} & \textbf{FPR (\%)} & \textbf{Recall (\%)} & \textbf{Precision (\%)} & \textbf{F1-Score} \\ \hline
+TriAnSec (Full System) & $3.00 \pm 2.37$ & $95.03 \pm 0.46$ & $98.31 \pm 1.44$ & $0.966 \pm 0.009$ \\
+Baseline (Fixed-Window IP) & $0.00$ & $0.00$ & $100.00$ & $0.000$ \\
+Ablation A (No Client Hints) & $16.16$ & $94.28$ & $91.94$ & $0.931$ \\
+Ablation B (No EWMA History) & $5.57$ & $95.13$ & $96.78$ & $0.959$ \\
+Ablation C (Sync Pipeline) & $6.02$ & $95.55$ & $96.88$ & $0.962$ \\
+\hline
+\end{tabular}
+\end{table}
+
+% =========================================================
+% Table II: Fast-Path Latency Overhead Comparison
+% =========================================================
+\begin{table}[htbp]
+\centering
+\caption{Latency Overhead Analysis of Fast-Path Security Dispatch (ms)}
+\label{tab:latency_metrics}
+\begin{tabular}{lccccc}
+\hline
+\textbf{Architecture} & \textbf{P50} & \textbf{P90} & \textbf{P95} & \textbf{P99} & \textbf{Mean} \\ \hline
+TriAnSec (Full System) & $4.26 \pm 0.45$ & $21.57 \pm 5.06$ & $46.45 \pm 16.36$ & $245.15 \pm 141.22$ & $15.37 \pm 5.82$ \\
+Baseline (Fixed-Window IP) & $2.93 \pm 0.15$ & $7.31 \pm 0.41$ & $10.03 \pm 0.82$ & $18.29 \pm 2.02$ & $4.17 \pm 0.29$ \\
+Ablation A (No Client Hints) & $3.96$ & $18.34$ & $36.74$ & $122.19$ & $11.30$ \\
+Ablation B (No EWMA History) & $4.03$ & $17.30$ & $37.46$ & $131.57$ & $11.32$ \\
+Ablation C (Sync Pipeline) & $3.62$ & $12.79$ & $17.44$ & $33.58$ & $6.10$ \\
+\hline
+\end{tabular}
+\end{table}

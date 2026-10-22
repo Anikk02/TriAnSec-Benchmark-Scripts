@@ -1,0 +1,270 @@
+==========================================================================================
+TRIANSEC CSV EVIDENCE EVALUATION — run baseline_2
+Generated: 2026-10-22T20:21:21.242056Z
+==========================================================================================
+==========================================================================================
+1. FILE LOAD & INTEGRITY
+==========================================================================================
+CSV file : evidence\baseline_run_2.csv
+Size     : 1651.5 KB
+Header columns  : 22
+Data rows       : 5484
+Missing cols    : none
+Extra cols      : none
+Null seq        : 0
+Null status     : 0
+Null latency    : 0
+==========================================================================================
+2. DECISION MATRIX BY USER TYPE
+==========================================================================================
+user_type        total   ALLOW  THROTTLE   BLOCK      RL   ERROR    BLOCK%
+normal             704     695         0       0       0       9     0.00%
+minimal_bad        644     635         0       0       0       9     0.00%
+suspicious        2665    2654         0       0       0      11     0.00%
+real_bad          1442    1437         0       0       0       5     0.00%
+
+Block-rate escalation (normal -> real_bad):
+    normal            0.00%
+    minimal_bad       0.00%
+    suspicious        0.00%
+    real_bad          0.00%
+  Monotonic increase: True
+==========================================================================================
+3. STATUS CODE DISTRIBUTION
+==========================================================================================
+    HTTP     count       pct
+       0        29     0.53%
+     200      5043    91.96%
+     404       228     4.16%
+     405       136     2.48%
+     422        48     0.88%
+==========================================================================================
+4. LATENCY ANALYSIS
+==========================================================================================
+By user type (ms):
+user_type            n      mean       p50       p90       p95       p99       max
+normal             707       5.1       2.6       6.4       7.9      21.3     428.0
+minimal_bad        649       6.3       2.5       7.1       9.0      24.7     899.1
+suspicious        2677       5.9       3.0       8.0      11.4      24.1    1042.8
+real_bad          1451       7.5       3.6       9.9      14.4      56.7     901.4
+
+By status code (ms):
+    HTTP       n      mean       p50       p95       max
+       0      29     313.8     163.8     901.4    1042.8
+     200    5043       4.6       3.1      11.1     355.9
+     404     228       5.9       2.9      10.8     346.5
+     405     136       4.5       3.5      10.5      26.2
+     422      48       5.3       3.8      14.5      33.5
+
+Latency by (user_type, decision):
+user_type     decision           n       p50       p95
+minimal_bad   ALLOW            635       2.5       8.8
+minimal_bad   CONNECT_ERROR       5     316.5     899.1
+minimal_bad   ERROR              9       1.6       4.1
+normal        ALLOW            695       2.6       7.8
+normal        CONNECT_ERROR       3     163.8     428.0
+normal        ERROR              9       1.9       9.1
+real_bad      ALLOW           1437       3.6      14.0
+real_bad      CONNECT_ERROR       9     398.1     901.4
+real_bad      ERROR              5       1.4       4.3
+suspicious    ALLOW           2654       3.0      11.0
+suspicious    CONNECT_ERROR      12     137.5    1042.8
+suspicious    ERROR             11       2.1      25.7
+
+ISOLATED FAST-PATH OVERHEAD (fast_path_latency_ms) (ms):
+user_type            n      mean       p50       p90       p95       p99       max
+normal             707      4.12      2.59      6.32      7.80     16.16    346.53
+minimal_bad        649      3.42      2.43      6.87      8.64     13.55     25.19
+suspicious        2677      4.51      3.02      7.69     10.96     18.67    350.24
+real_bad          1451      5.28      3.60      9.59     13.96     22.96    355.89
+ALL_TRAFFIC       5484      4.53      3.12      7.75     11.03     19.67    355.89
+==========================================================================================
+5. ERROR LOCATION (status >= 400)
+==========================================================================================
+Total error rows: 412 / 5484 (7.51%)
+
+Top (user_type, endpoint, status) combos:
+    suspicious    /api/users                      HTTP 405  x32
+    suspicious    /api/admin                      HTTP 404  x31
+    suspicious    /api/search                     HTTP 422  x27
+    suspicious    /api/products                   HTTP 405  x20
+    suspicious    /api/checkout                   HTTP 404  x19
+    suspicious    /api/export                     HTTP 405  x17
+    suspicious    /api/payments                   HTTP 404  x15
+    suspicious    /api/notifications              HTTP 404  x14
+    normal        /api/notifications              HTTP 404  x13
+    normal        /api/checkout                   HTTP 404  x12
+    normal        /api/payments                   HTTP 404  x12
+    suspicious    /api/cart                       HTTP 404  x12
+    normal        /api/settings                   HTTP 404  x9
+    normal        /api/cart                       HTTP 404  x9
+    real_bad      /api/search                     HTTP 422  x9
+    minimal_bad   /api/cart                       HTTP 404  x9
+    suspicious    /api/data                       HTTP 405  x9
+    minimal_bad   /api/settings                   HTTP 404  x9
+    minimal_bad   /api/notifications              HTTP 404  x8
+    suspicious    /api/settings                   HTTP 404  x7
+    minimal_bad   /api/checkout                   HTTP 404  x7
+    minimal_bad   /api/payments                   HTTP 404  x5
+    suspicious    /api/v1/internal                HTTP 404  x5
+    real_bad      /api/export                     HTTP 405  x5
+    real_bad      /api/admin                      HTTP 404  x4
+
+Error count per user type:
+    normal             59 / 707     = 8.35%
+    minimal_bad        43 / 649     = 6.63%
+    suspicious        243 / 2677    = 9.08%
+    real_bad           67 / 1451    = 4.62%
+
+Error count per endpoint (all user types):
+    /api/search                              41
+    /api/checkout                            38
+    /api/users                               37
+    /api/notifications                       36
+    /api/admin                               35
+    /api/payments                            33
+    /api/cart                                32
+    /api/settings                            28
+    /api/products                            25
+    /api/export                              23
+    /api/data                                12
+    /api/orders                              10
+    /api/v1/internal                         8
+    /api/files                               8
+    /debug                                   7
+
+404-only breakdown (harness vs real?):
+    suspicious    /api/admin                              31
+    suspicious    /api/checkout                           19
+    suspicious    /api/payments                           15
+    suspicious    /api/notifications                      14
+    normal        /api/notifications                      13
+    normal        /api/checkout                           12
+    normal        /api/payments                           12
+    suspicious    /api/cart                               12
+    minimal_bad   /api/settings                           9
+    normal        /api/cart                               9
+    normal        /api/settings                           9
+    minimal_bad   /api/cart                               9
+    minimal_bad   /api/notifications                      8
+    minimal_bad   /api/checkout                           7
+    suspicious    /api/settings                           7
+==========================================================================================
+6. IDENTITY RESOLUTION (from CSV)
+==========================================================================================
+Per-user IP & cookie cardinality (top 15 by n_ips):
+ user_idtype              reqs     IPs   cookies
+      61real_bad           296     248         2
+      62real_bad           299     247         1
+      60real_bad           287     244         1
+      58real_bad           291     241         1
+      59real_bad           278     228         1
+      52suspicious         173      90         1
+      53suspicious         146      84         1
+      50suspicious         181      78         1
+      55suspicious         172      77         1
+      49suspicious         179      77         1
+      42suspicious         154      77         1
+      51suspicious         154      76         1
+      40suspicious         138      73         1
+      56suspicious         150      71         1
+      46suspicious         126      69         1
+
+STICKY / ROTATION PROOF
+  Sticky users total              : 40
+  Sticky users that rotated IP    : 0  (expected 0)
+  Rotating users total            : 23
+  Rotating users that DID rotate  : 23
+
+COOKIE STABILITY UNDER IP ROTATION
+  real_bad       users=  5  avg_IPs=  241.6  max_IPs=  248  multi_cookie_users=1
+  suspicious     users= 18  avg_IPs=   71.0  max_IPs=   90  multi_cookie_users=0
+
+Total unique users (CSV)     : 63
+Total unique IPs (CSV)       : 986
+Total unique cookies (CSV)   : 65
+Total unique fingerprints    : 5297
+==========================================================================================
+7. REQUEST KIND & BURST BEHAVIOR
+==========================================================================================
+request_kind distribution:
+    burst         3494
+    normal        1351
+    suspicious    353
+    business      203
+    attack        83
+
+burst flag distribution:
+    burst=1     3494
+    burst=0     1990
+
+Burst rows per user type:
+    normal              18 / 707 (2.55%)
+    minimal_bad        257 / 649 (39.60%)
+    suspicious        1879 / 2677 (70.19%)
+    real_bad          1340 / 1451 (92.35%)
+
+Decision rate: burst vs non-burst (bad users only):
+    burst=False  n=909    BLOCK%=0.00
+    burst=True   n=3219   BLOCK%=0.00
+==========================================================================================
+8. ENDPOINT & METHOD COVERAGE
+==========================================================================================
+Top 20 endpoints:
+        923  /api/search
+        881  /api/products
+        854  /health
+        811  /api/users/me
+        766  /api/profile
+        743  /api/feed
+         84  /api/users
+         48  /api/export
+         45  /api/data
+         40  /api/checkout
+         38  /api/notifications
+         38  /api/admin
+         36  /api/payments
+         33  /api/cart
+         31  /api/settings
+         25  /api/orders
+         19  /api/admin/users
+          9  /api/files
+          8  /api/v1/internal
+          7  /debug
+
+Method distribution:
+    GET     5154
+    POST    285
+    DELETE  23
+    PUT     22
+
+Endpoint x user_type matrix (top 10 endpoints):
+user_type       minimal_bad  normal  real_bad  suspicious
+endpoint_clean                                           
+/api/search             104     114       252         453
+/api/products            93      95       240         453
+/health                  95     124       231         404
+/api/users/me           107     145       199         360
+/api/profile             91      89       220         366
+/api/feed               106      76       225         336
+/api/users                4       0         9          71
+/api/export               2       0        11          35
+/api/data                 1       0         8          36
+/api/checkout             7      13         1          19
+==========================================================================================
+9. RESPONSE_REASON ON 429s
+==========================================================================================
+No 429s in this run.
+==========================================================================================
+10. VERDICT
+==========================================================================================
+CHECK                                                      RESULT                        DETAIL
+Normal users largely allowed                                 PASS                  BLOCK%=0.00%
+Bad users blocked more than normal                           FAIL     bad=0.00% vs normal=0.00%
+Block-rate monotonically increases with severity             PASSrates=[np.float64(0.0), np.float64(0.0), np.float64(0.0), np.float64(0.0)]
+No sticky user rotated IP                                    PASS                  violations=0
+Majority of bad users keep 1 cookie under IP rotation        PASS       multi_cookie_users=1/23
+Overall error rate < 15%                                     PASS                err_rate=7.51%
+Fast-Path P95 latency < 30 ms                                PASS                   p95=11.61ms
+
+Passed 6/7 checks.

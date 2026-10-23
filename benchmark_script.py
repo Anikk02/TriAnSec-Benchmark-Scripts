@@ -1,5 +1,5 @@
 """
-TrianSec Traffic Simulation - 200 Authenticated Users
+TrianSec Traffic Simulation - 63 Authenticated Users
 With full evidence recording for proof/audit purposes.
 
 Simulates realistic traffic patterns to test:
@@ -38,7 +38,7 @@ from enum import Enum
 BASE_URL = "http://localhost:8000"
 DURATION_MINUTES = 10
 
-# User counts (total = 200)
+# User counts (total = 63)
 NORMAL_USERS_COUNT = 30
 MINIMAL_BAD_USERS_COUNT = 10
 SUSPICIOUS_USERS_COUNT = 18

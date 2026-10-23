@@ -45,7 +45,7 @@ SUSPICIOUS_USERS_COUNT = 18
 REAL_BAD_USERS_COUNT = 5
 
 # API Key for authentication (all users authenticated with same tenant key)
-API_KEY = "ts_live_905ddc9096b056a2cc9ebbd63d8adb6c8456cc780d8f987d"
+API_KEY = "ts_live_905ddc9096b056a2ccxxxxxxxxxxxxxxxxxxxx"
 
 # ============ EVIDENCE RECORDING ============
 EVIDENCE_DIR = "evidence"
